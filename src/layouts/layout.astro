@@ -1,0 +1,25 @@
+---
+import './global.css'
+import BaseLayout, { type Props as BaseProps } from "./base.astro";
+import { getEntry } from 'astro:content';
+
+export type Props = BaseProps & {
+	title?: string
+	description?: string
+}
+
+const { title, description, class: className, ...props } = Astro.props
+const site = await getEntry('site', 'site')
+---
+
+<BaseLayout class:list={[className, 'min-h-screen']} {...props}>
+	<slot />
+
+	<Fragment slot="head">
+		<title>{title ? `${title} \u2014 ${site?.data.title}` : site?.data.title}</title>
+		<meta name="description" content={description || site?.data.description}>
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<slot name="head" />
+	</Fragment>
+</BaseLayout>

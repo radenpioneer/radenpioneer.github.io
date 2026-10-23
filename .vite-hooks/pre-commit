@@ -1,0 +1,4 @@
+# GUI Git clients may not inherit the shell's Vite+ runtime path.
+export PATH="${VP_HOME:-${XDG_DATA_HOME:-$HOME/.local/share}/vite-plus}/bin:$PATH"
+
+vp staged
